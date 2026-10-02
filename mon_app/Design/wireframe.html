@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balado – Wireframe</title>
+<style>
+  :root{
+    --ink:#000; --text:#1a1a1a; --muted:#555; --line:#222; --soft:#bdbdbd;
+    --fill:#e6e6e6; --fill2:#f2f2f2; --bg:#fafafa; --paper:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.4}
+  .page{max-width:1500px;margin:0 auto;padding:32px 16px 64px}
+  h1{font-size:28px;margin:0 0 4px}
+  h2{font-size:20px;margin:48px 0 6px;border-bottom:2px solid var(--ink);padding-bottom:6px}
+  .sub{color:var(--muted);margin:0 0 20px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;margin-bottom:8px}
+  .meta b{color:var(--ink)}
+
+  /* Flow */
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0}
+  .flow .node{border:2px solid var(--ink);background:var(--paper);padding:10px 14px;font-weight:bold;font-size:14px}
+  .flow .arr{font-size:13px;color:var(--muted)}
+
+  /* Rangée d'écrans */
+  .row{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+  .screen-block{width:330px}
+  .screen-title{font-weight:bold;font-size:15px;margin:0 0 8px}
+  .screen-title span{display:inline-block;background:var(--ink);color:#fff;border-radius:50%;width:24px;height:24px;text-align:center;line-height:24px;font-size:13px;margin-right:6px}
+
+  /* Téléphone */
+  .phone{width:330px;height:640px;border:3px solid var(--ink);border-radius:28px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .status{height:22px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;padding:4px 18px 0}
+  .appbar{height:52px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 12px;font-weight:bold}
+  .appbar .icon-btn{width:44px;height:44px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;border-radius:8px}
+  .content{flex:1;overflow:hidden;padding:14px}
+  .tabbar{height:64px;border-top:1px solid var(--line);display:flex}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;gap:2px}
+  .tab .ico{width:24px;height:24px;border:1.5px solid var(--line);border-radius:4px}
+  .tab.active{font-weight:bold;background:var(--fill)}
+  .tab.active .ico{background:var(--ink)}
+
+  /* Éléments */
+  .label{font-size:13px;font-weight:bold;margin:0 0 6px}
+  .h-big{font-size:22px;font-weight:bold;margin:8px 0 14px}
+  .input{height:52px;border:2px solid var(--line);border-radius:8px;display:flex;align-items:center;padding:0 12px;gap:8px;color:var(--muted);font-size:14px}
+  .input.err{border-width:3px;border-style:dashed}
+  .err-msg{font-size:13px;font-weight:bold;margin-top:6px}
+  .btn{height:52px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:15px;margin-top:12px}
+  .btn.primary{background:var(--ink);color:#fff}
+  .btn.secondary{border:2px solid var(--ink)}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .chip{min-height:36px;padding:0 12px;border:1.5px solid var(--line);border-radius:18px;font-size:12px;display:flex;align-items:center}
+  .chip.on{background:var(--ink);color:#fff}
+  .ph{background:var(--fill);border:1.5px solid var(--soft);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted)}
+  .ph::before,.ph::after{content:"";position:absolute;left:-10%;top:50%;width:120%;border-top:1px solid var(--soft)}
+  .ph::before{transform:rotate(22deg)} .ph::after{transform:rotate(-22deg)}
+  .ph span{position:relative;background:var(--fill);padding:0 4px;z-index:1}
+  .card{border:1.5px solid var(--line);border-radius:10px;display:flex;gap:10px;padding:8px;margin-bottom:10px;align-items:center}
+  .card .ph{width:64px;height:64px;flex:none;border-radius:6px}
+  .card .txt{flex:1;font-size:12px;color:var(--muted)}
+  .card .txt b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+  .heart{width:44px;height:44px;border:1.5px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:16px}
+  .heart.on{background:var(--ink);color:#fff}
+  .badge{display:inline-block;border:1.5px solid var(--line);border-radius:4px;padding:1px 6px;font-size:11px;font-weight:bold;color:var(--ink)}
+  .section-label{font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px}
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+  .info div{border:1.5px solid var(--soft);border-radius:6px;padding:6px 8px;font-size:11px;color:var(--muted)}
+  .info div b{display:block;color:var(--ink);font-size:13px}
+  .lines .l{height:9px;background:var(--fill);margin:6px 0;border-radius:2px}
+  .skel{background:var(--fill);border-radius:4px}
+  .center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;padding:0 10px}
+  .big-ico{width:72px;height:72px;border:2px dashed var(--line);border-radius:50%;margin-bottom:12px}
+  .toast{position:absolute;left:14px;right:14px;bottom:78px;background:var(--ink);color:#fff;border-radius:8px;padding:12px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+  .toast u{font-weight:bold}
+  .recent{font-size:13px;border-bottom:1px solid var(--soft);padding:12px 0;display:flex;justify-content:space-between}
+
+  /* Annotations */
+  .notes{margin-top:12px;font-size:13px;background:var(--paper);border:1.5px solid var(--soft);border-radius:8px;padding:12px}
+  .notes h4{margin:10px 0 4px;font-size:13px}
+  .notes h4:first-child{margin-top:0}
+  .notes ul{margin:0;padding-left:18px}
+  .notes li{margin:2px 0}
+  .go{font-weight:bold;white-space:nowrap}
+
+  .summary{background:var(--paper);border:2px solid var(--ink);padding:16px;max-width:900px}
+  .summary ol{margin:0;padding-left:20px}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;margin:8px 0}
+  .legend .ph{width:40px;height:24px;display:inline-flex;vertical-align:middle;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Balado — Wireframe basse fidélité</h1>
+  <p class="sub">Projet M291 · Squelette des écrans, sans design final</p>
+
+  <div class="meta">
+    <div><b>Objectif :</b> trouver une petite rando près de chez soi, accessible en transports publics, et la garder en favori.</div>
+    <div><b>Plateforme :</b> mobile</div>
+    <div><b>Persona :</b> Léa, 17 ans, apprentie à Lausanne, pas de voiture, peu de temps libre, à l'aise avec son téléphone mais veut aller vite.</div>
+  </div>
+
+  <h2>User flow</h2>
+  <div class="flow">
+    <div class="node">1 · Recherche</div><div class="arr">— tape son lieu, « Chercher » →</div>
+    <div class="node">2 · Résultats</div><div class="arr">— touche une carte →</div>
+    <div class="node">3 · Fiche rando</div><div class="arr">— « Ajouter aux favoris » →</div>
+    <div class="node">4 · Favoris</div>
+  </div>
+  <div class="legend">
+    <div><span class="ph"><span></span></span>Placeholder image</div>
+    <div>■ Bouton principal (plein)</div>
+    <div>□ Bouton secondaire (contour)</div>
+    <div>Barre du bas : <b>Rechercher</b> | <b>Favoris</b>, sur tous les écrans</div>
+  </div>
+
+  <!-- ================= ÉCRANS PRINCIPAUX ================= -->
+  <h2>Écrans principaux</h2>
+  <div class="row">
+
+    <!-- 1. RECHERCHE -->
+    <div class="screen-block">
+      <p class="screen-title"><span>1</span>Recherche (accueil)</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar">Balado</div>
+        <div class="content">
+          <div class="h-big">Où veux-tu marcher ?</div>
+          <p class="label">Ville ou arrêt de départ</p>
+          <div class="input">⌕ Ex. Lausanne, Vevey…</div>
+          <div class="btn primary">Chercher des randos</div>
+          <div class="section-label" style="margin-top:22px">Recherches récentes</div>
+          <div class="recent"><span>⟲ Lausanne</span><span>›</span></div>
+          <div class="recent"><span>⟲ Morges</span><span>›</span></div>
+        </div>
+        <div class="tabbar">
+          <div class="tab active"><div class="ico"></div>Rechercher</div>
+          <div class="tab"><div class="ico"></div>Favoris</div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>Rôle</h4>
+        <p style="margin:0">Point de départ : Léa indique où elle se trouve.</p>
+        <h4>Éléments</h4>
+        <ul>
+          <li>En-tête : texte « Balado »</li>
+          <li>Titre : « Où veux-tu marcher ? »</li>
+          <li>Champ de saisie : « Ville ou arrêt de départ »</li>
+          <li>Bouton principal : « Chercher des randos »</li>
+          <li>Liste : recherches récentes (lignes cliquables)</li>
+          <li>Barre du bas : Rechercher (actif) / Favoris</li>
+        </ul>
+        <h4>Actions</h4>
+        <ul>
+          <li>« Chercher des randos » <span class="go">→ Écran 2</span></li>
+          <li>Recherche récente <span class="go">→ Écran 2</span></li>
+          <li>Onglet Favoris <span class="go">→ Écran 4</span></li>
+        </ul>
+        <h4>Feedbacks</h4>
+        <ul>
+          <li>Champ vide → message d'erreur (voir 1b)</li>
+          <li>Lieu inconnu → « On ne connaît pas ce lieu, essaie une ville proche »</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2. RÉSULTATS -->
+    <div class="screen-block">
+      <p class="screen-title"><span>2</span>Résultats</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar"><div class="icon-btn">←</div>Randos près de Lausanne</div>
+        <div class="content">
+          <p class="label">Difficulté</p>
+          <div class="chips">
+            <div class="chip on">Toutes</div><div class="chip">Facile</div><div class="chip">Moyen</div><div class="chip">Difficile</div>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:0 0 8px">8 randos trouvées</p>
+          <div class="card"><div class="ph"><span>photo</span></div><div class="txt"><b>Bois de Sauvabelin</b>1 h 30 · 5 km <span class="badge">Facile</span><br>Départ : arrêt Sallaz</div><div class="heart">♡</div></div>
+          <div class="card"><div class="ph"><span>photo</span></div><div class="txt"><b>Lavaux, terrasses</b>2 h 45 · 9 km <span class="badge">Moyen</span><br>Départ : gare de Cully</div><div class="heart on">♥</div></div>
+          <div class="card"><div class="ph"><span>photo</span></div><div class="txt"><b>Gorges du Chauderon</b>3 h 30 · 11 km <span class="badge">Difficile</span><br>Départ : gare de Montreux</div><div class="heart">♡</div></div>
+        </div>
+        <div class="tabbar">
+          <div class="tab active"><div class="ico"></div>Rechercher</div>
+          <div class="tab"><div class="ico"></div>Favoris</div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>Rôle</h4>
+        <p style="margin:0">Léa compare les randos proches, triées de la plus facile à la plus difficile.</p>
+        <h4>Éléments</h4>
+        <ul>
+          <li>En-tête : bouton retour « ← » + titre avec le lieu</li>
+          <li>Filtres (puces) : Toutes / Facile / Moyen / Difficile</li>
+          <li>Texte : nombre de résultats</li>
+          <li>Liste de cartes : photo, nom, durée, distance, badge difficulté, départ</li>
+          <li>Icône cœur sur chaque carte (favori rapide)</li>
+        </ul>
+        <h4>Actions</h4>
+        <ul>
+          <li>Touche une carte <span class="go">→ Écran 3</span></li>
+          <li>Cœur → ajoute/retire des favoris (reste ici)</li>
+          <li>Puce de difficulté → filtre la liste (reste ici)</li>
+          <li>« ← » <span class="go">→ Écran 1</span></li>
+        </ul>
+        <h4>Feedbacks</h4>
+        <ul>
+          <li>Chargement → cartes grises « squelette » (2b)</li>
+          <li>Aucun résultat → état vide (2c)</li>
+          <li>Cœur → se remplit + message « Ajoutée à tes favoris »</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. FICHE -->
+    <div class="screen-block">
+      <p class="screen-title"><span>3</span>Fiche rando</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar"><div class="icon-btn">←</div>Détail</div>
+        <div class="content" style="padding-top:0;padding-left:0;padding-right:0">
+          <div class="ph" style="height:150px;border-left:0;border-right:0"><span>photo de la rando</span></div>
+          <div style="padding:12px 14px 0">
+            <div style="font-size:20px;font-weight:bold">Lavaux, terrasses</div>
+            <div style="margin-top:4px"><span class="badge">Moyen</span></div>
+            <div class="info">
+              <div>Durée<b>2 h 45</b></div>
+              <div>Distance<b>9 km</b></div>
+              <div>Dénivelé<b>+350 m</b></div>
+              <div>Départ<b>Gare de Cully</b></div>
+            </div>
+            <div class="section-label">Description</div>
+            <div class="lines"><div class="l"></div><div class="l"></div><div class="l" style="width:70%"></div></div>
+            <div class="btn primary">♡ Ajouter aux favoris</div>
+          </div>
+        </div>
+        <div class="tabbar">
+          <div class="tab active"><div class="ico"></div>Rechercher</div>
+          <div class="tab"><div class="ico"></div>Favoris</div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>Rôle</h4>
+        <p style="margin:0">Léa vérifie si la rando lui convient (temps, départ) avant de la garder.</p>
+        <h4>Éléments</h4>
+        <ul>
+          <li>En-tête : « ← » + « Détail »</li>
+          <li>Placeholder photo (pleine largeur)</li>
+          <li>Titre + badge de difficulté</li>
+          <li>4 cases d'info : durée, distance, dénivelé, départ</li>
+          <li>Bloc de texte : description</li>
+          <li>Bouton principal : « Ajouter aux favoris »</li>
+        </ul>
+        <h4>Actions</h4>
+        <ul>
+          <li>« Ajouter aux favoris » → enregistre, le bouton change (3b)</li>
+          <li>« ← » <span class="go">→ Écran 2</span></li>
+          <li>Onglet Favoris <span class="go">→ Écran 4</span></li>
+        </ul>
+        <h4>Feedbacks</h4>
+        <ul>
+          <li>Confirmation : message « Ajoutée à tes favoris » + lien « Voir »</li>
+          <li>Bouton devient « ♥ Dans tes favoris » (re-touche = retirer)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4. FAVORIS -->
+    <div class="screen-block">
+      <p class="screen-title"><span>4</span>Favoris</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar">Mes favoris</div>
+        <div class="content">
+          <p style="font-size:12px;color:var(--muted);margin:0 0 10px">2 randos enregistrées</p>
+          <div class="card"><div class="ph"><span>photo</span></div><div class="txt"><b>Lavaux, terrasses</b>2 h 45 · 9 km <span class="badge">Moyen</span><br>Départ : gare de Cully</div><div class="heart on">♥</div></div>
+          <div class="card"><div class="ph"><span>photo</span></div><div class="txt"><b>Bois de Sauvabelin</b>1 h 30 · 5 km <span class="badge">Facile</span><br>Départ : arrêt Sallaz</div><div class="heart on">♥</div></div>
+        </div>
+        <div class="tabbar">
+          <div class="tab"><div class="ico"></div>Rechercher</div>
+          <div class="tab active"><div class="ico"></div>Favoris</div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>Rôle</h4>
+        <p style="margin:0">Fin du flow : Léa retrouve samedi les randos qu'elle a gardées.</p>
+        <h4>Éléments</h4>
+        <ul>
+          <li>En-tête : « Mes favoris »</li>
+          <li>Texte : nombre de favoris</li>
+          <li>Liste de cartes (même format qu'à l'écran 2)</li>
+          <li>Cœur plein sur chaque carte (pour retirer)</li>
+          <li>Barre du bas : Favoris (actif)</li>
+        </ul>
+        <h4>Actions</h4>
+        <ul>
+          <li>Touche une carte <span class="go">→ Écran 3</span></li>
+          <li>Cœur plein → retire le favori (reste ici)</li>
+          <li>Onglet Rechercher <span class="go">→ Écran 1</span></li>
+        </ul>
+        <h4>Feedbacks</h4>
+        <ul>
+          <li>Retrait → « Retirée des favoris » + « Annuler » (4b)</li>
+          <li>Aucun favori → état vide (4c)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ÉTATS & FEEDBACKS ================= -->
+  <h2>États et feedbacks</h2>
+  <div class="row">
+
+    <!-- 1b erreur -->
+    <div class="screen-block">
+      <p class="screen-title"><span>1b</span>Erreur : champ vide</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar">Balado</div>
+        <div class="content">
+          <div class="h-big">Où veux-tu marcher ?</div>
+          <p class="label">Ville ou arrêt de départ</p>
+          <div class="input err">⌕</div>
+          <div class="err-msg">⚠ Écris une ville ou un arrêt pour lancer la recherche.</div>
+          <div class="btn primary">Chercher des randos</div>
+        </div>
+        <div class="tabbar"><div class="tab active"><div class="ico"></div>Rechercher</div><div class="tab"><div class="ico"></div>Favoris</div></div>
+      </div>
+      <div class="notes">Bordure du champ épaissie + pointillés, icône ⚠ et texte en gras : l'erreur ne dépend pas d'une couleur.</div>
+    </div>
+
+    <!-- 2b chargement -->
+    <div class="screen-block">
+      <p class="screen-title"><span>2b</span>Chargement</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar"><div class="icon-btn">←</div>Randos près de Lausanne</div>
+        <div class="content">
+          <p style="font-size:13px;margin:0 0 12px">Recherche des randos…</p>
+          <div class="card" style="border-color:var(--soft)"><div class="skel" style="width:64px;height:64px"></div><div style="flex:1"><div class="skel" style="height:12px;width:70%;margin-bottom:8px"></div><div class="skel" style="height:10px;width:50%"></div></div></div>
+          <div class="card" style="border-color:var(--soft)"><div class="skel" style="width:64px;height:64px"></div><div style="flex:1"><div class="skel" style="height:12px;width:60%;margin-bottom:8px"></div><div class="skel" style="height:10px;width:40%"></div></div></div>
+          <div class="card" style="border-color:var(--soft)"><div class="skel" style="width:64px;height:64px"></div><div style="flex:1"><div class="skel" style="height:12px;width:75%;margin-bottom:8px"></div><div class="skel" style="height:10px;width:45%"></div></div></div>
+        </div>
+        <div class="tabbar"><div class="tab active"><div class="ico"></div>Rechercher</div><div class="tab"><div class="ico"></div>Favoris</div></div>
+      </div>
+      <div class="notes">Cartes « squelette » à la place des résultats + texte « Recherche des randos… ».</div>
+    </div>
+
+    <!-- 2c vide -->
+    <div class="screen-block">
+      <p class="screen-title"><span>2c</span>Aucun résultat</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar"><div class="icon-btn">←</div>Randos près de Zermatt</div>
+        <div class="content">
+          <div class="center">
+            <div class="big-ico"></div>
+            <b>Aucune rando trouvée ici</b>
+            <p style="font-size:13px;color:var(--muted)">Essaie une ville plus proche ou enlève le filtre de difficulté.</p>
+            <div class="btn secondary" style="width:100%">Changer de lieu</div>
+          </div>
+        </div>
+        <div class="tabbar"><div class="tab active"><div class="ico"></div>Rechercher</div><div class="tab"><div class="ico"></div>Favoris</div></div>
+      </div>
+      <div class="notes">« Changer de lieu » <span class="go">→ Écran 1</span>, avec le champ déjà rempli.</div>
+    </div>
+
+    <!-- 3b confirmation -->
+    <div class="screen-block">
+      <p class="screen-title"><span>3b</span>Confirmation favori</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar"><div class="icon-btn">←</div>Détail</div>
+        <div class="content" style="padding:0">
+          <div class="ph" style="height:150px;border-left:0;border-right:0"><span>photo de la rando</span></div>
+          <div style="padding:12px 14px 0">
+            <div style="font-size:20px;font-weight:bold">Lavaux, terrasses</div>
+            <div style="margin-top:4px"><span class="badge">Moyen</span></div>
+            <div class="info"><div>Durée<b>2 h 45</b></div><div>Distance<b>9 km</b></div><div>Dénivelé<b>+350 m</b></div><div>Départ<b>Gare de Cully</b></div></div>
+            <div class="btn secondary">♥ Dans tes favoris</div>
+          </div>
+        </div>
+        <div class="toast"><span>✓ Ajoutée à tes favoris</span><u>Voir</u></div>
+        <div class="tabbar"><div class="tab active"><div class="ico"></div>Rechercher</div><div class="tab"><div class="ico"></div>Favoris</div></div>
+      </div>
+      <div class="notes">Message en bas pendant 3 s. « Voir » <span class="go">→ Écran 4</span>. Le bouton passe en contour avec un cœur plein.</div>
+    </div>
+
+    <!-- 4c vide -->
+    <div class="screen-block">
+      <p class="screen-title"><span>4c</span>Favoris vides</p>
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="appbar">Mes favoris</div>
+        <div class="content">
+          <div class="center">
+            <div class="big-ico"></div>
+            <b>Pas encore de favoris</b>
+            <p style="font-size:13px;color:var(--muted)">Touche ♡ sur une rando pour la retrouver ici.</p>
+            <div class="btn primary" style="width:100%">Chercher une rando</div>
+          </div>
+        </div>
+        <div class="tabbar"><div class="tab"><div class="ico"></div>Rechercher</div><div class="tab active"><div class="ico"></div>Favoris</div></div>
+      </div>
+      <div class="notes">« Chercher une rando » <span class="go">→ Écran 1</span>. Un retrait (4b) affiche « Retirée des favoris · Annuler » au même endroit que le message 3b.</div>
+    </div>
+  </div>
+
+  <h2>Accessibilité</h2>
+  <ul style="font-size:14px;max-width:900px">
+    <li>Zones tactiles d'au moins 44 × 44 px (boutons 52 px de haut, cœurs 44 px, onglets 64 px).</li>
+    <li>Texte noir sur blanc (contraste maximal) ; aucune info portée uniquement par la couleur (erreur = icône + texte + bordure).</li>
+    <li>Hiérarchie : un seul titre et un seul bouton principal par écran.</li>
+    <li>Même barre du bas et même format de carte partout, pour que Léa ne réapprenne rien.</li>
+  </ul>
+
+  <h2>Résumé des choix de structure</h2>
+  <div class="summary">
+    <ol>
+      <li><b>4 écrans seulement, 2 onglets fixes (Rechercher / Favoris)</b> : Léa a peu de temps, elle ne doit jamais se perdre et peut toujours revenir à ses favoris en un geste.</li>
+      <li><b>Recherche par lieu d'abord, puis filtres de difficulté sur les résultats</b> : c'est sa tâche n°1. Les cartes affichent directement durée, difficulté et gare de départ, ses vrais critères.</li>
+      <li><b>Favori possible depuis la liste et depuis la fiche, avec confirmation visible</b> : moins d'étapes pour l'action clé, et chaque action a un retour clair (chargement, vide, erreur, annuler).</li>
+    </ol>
+  </div>
+
+</div>
+</body>
+</html>

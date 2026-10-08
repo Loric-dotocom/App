@@ -4,7 +4,7 @@
 **Objectif :** trouver rapidement une petite randonnée près de chez soi, accessible en transports publics, et la garder en favori.
 **Plateforme :** mobile
 
-**Persona :** Léa, 17 ans, apprentie à Lausanne. Pas de voiture, peu de temps libre. À l'aise avec son téléphone, mais veut aller vite.
+**Persona :** Léa, 17 ans, apprentie à Lausanne. Pas de voiture, peu de temps libre. À l'aise avec son téléphone, mais veut aller vite. → voir [`persona.md`](persona.md)
 
 **Scénario :** Léa veut trouver une rando pour samedi et la garder.
 - **Début :** ouverture de l'app

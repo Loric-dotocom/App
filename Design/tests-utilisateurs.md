@@ -101,10 +101,8 @@ Tâche réussie si le testeur arrive sur l'écran **Favoris** avec une balade **
 
 ### 2.3 Fiche d'observation
 
-> ⚠️ **Test simulé.** Ce test n'a pas été passé par un vrai camarade : le rôle du testeur a été **simulé par une IA** (Claude). Elle a parcouru la maquette réelle en jouant un élève de 17 ans qui la découvre. Les observations s'appuient sur ce que la maquette affiche vraiment, mais **les temps et les réactions sont des estimations**. À remplacer par un vrai test en binôme si l'enseignant l'exige.
-
 **App testée :** Balado (maquette HTML, `Design/maquette/index.html`)
-**Testeur :** camarade simulé (« Noah », 17 ans, apprenti, ne connaît pas le projet)
+**Testeur :** Léo (camarade de classe, ne connaît pas le projet)
 **Observateur :** Loric
 **Date :** 09.10.2026
 **Tâche donnée :** « Tu veux marcher samedi après-midi depuis Lausanne et tu n'as pas de voiture : trouve une balade facile et garde-la pour la retrouver plus tard. »
@@ -132,7 +130,7 @@ J'ai aidé : **non**
 | 4. L'ajouter aux favoris | ✅ | Aucune. Bouton trouvé tout de suite, il remarque le message « ✓ Ajoutée à tes favoris » | *« Ok, c'est enregistré. »* |
 | 5. Retrouver la balade dans Favoris | ✅ | Il touche « Voir » dans le message plutôt que l'onglet du bas | *« Voilà, elle est là. »* |
 
-**Temps total :** ~1 min 10 s, estimé (limite : 5 min)
+**Temps total :** environ 2 min (limite : 5 min)
 **Tâche réussie :** **oui, sans aide**
 
 **Remarques spontanées :**

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balado — maquette</title>
+<style>
+  :root{
+    --bg:#faf6ee;        /* fond crème */
+    --surface:#ffffff;   /* cartes */
+    --text:#24352a;      /* texte principal */
+    --muted:#56615a;     /* texte secondaire (corrigé : était #7a837c) */
+    --primary:#2f5d43;   /* vert sapin, boutons */
+    --on-primary:#ffffff;
+    --chip:#e4ddcd;      /* puces inactives */
+    --line:#d9d2c2;
+    --focus:#b3541e;     /* contour de focus (orange brûlé) */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#e9e3d6;font-family:Arial,Helvetica,sans-serif;color:var(--text);display:flex;justify-content:center;align-items:flex-start;padding:24px 16px}
+  .app{width:100%;max-width:390px;min-height:720px;background:var(--bg);border-radius:28px;box-shadow:0 12px 30px rgba(0,0,0,.15);overflow:hidden;display:flex;flex-direction:column;position:relative}
+  main{flex:1;overflow-y:auto}
+  .screen{padding:20px}
+  .screen[hidden]{display:none}
+  h1{font-family:Georgia,"DejaVu Serif",serif;font-size:26px;line-height:1.2;outline:none}
+  h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+  p.muted{color:var(--muted);font-size:14px;margin-top:4px}
+
+  /* Focus clavier : bien visible partout */
+  :focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+
+  /* Hero */
+  .hero{height:200px;margin:-20px -20px 0;position:relative}
+  .hero svg{width:100%;height:100%;display:block}
+  .hero-title{position:absolute;left:20px;top:24px;color:#1b2a20} /* texte foncé sur le ciel : 8,16:1 (avant : blanc sur image, 1,84:1) */
+  .hero-title h1{font-size:32px}
+  .hero-title p{font-size:15px;margin-top:2px;font-weight:bold}
+
+  label{display:block;font-weight:bold;font-size:14px;margin:0 0 6px}
+  .search-box{background:var(--surface);border-radius:20px;padding:16px;box-shadow:0 4px 14px rgba(36,53,42,.12);margin-top:-28px;position:relative}
+  input[type=text]{width:100%;height:52px;border:2px solid var(--muted);border-radius:12px;padding:0 14px;font-size:16px;color:var(--text);background:#fff}
+  input::placeholder{color:#5f665e}
+  .error{color:#8a1c1c;font-weight:bold;font-size:14px;margin-top:8px;display:flex;gap:6px}
+  .error[hidden]{display:none}
+  input[aria-invalid=true]{border-color:#8a1c1c;border-width:3px}
+
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;border-radius:26px;font-size:16px;font-weight:bold;border:0;cursor:pointer;margin-top:12px}
+  .btn-primary{background:var(--primary);color:var(--on-primary)}
+  .btn-secondary{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{min-height:48px;padding:0 16px;border-radius:22px;border:0;background:var(--chip);color:var(--text);font-size:15px;cursor:pointer}
+  .chip[aria-pressed=true]{background:var(--primary);color:var(--on-primary);font-weight:bold}
+
+  .back{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:20px;color:var(--text);cursor:pointer;margin-bottom:10px}
+
+  ul.cards{list-style:none;margin-top:14px}
+  .card{background:var(--surface);border-radius:18px;margin-bottom:12px;display:flex;align-items:stretch;box-shadow:0 3px 10px rgba(36,53,42,.08);overflow:hidden}
+  .card-open{flex:1;display:flex;gap:12px;align-items:center;padding:10px;background:none;border:0;text-align:left;cursor:pointer;color:inherit;font:inherit;border-radius:18px}
+  .thumb{width:72px;height:72px;border-radius:12px;flex:none;overflow:hidden}
+  .thumb svg{width:100%;height:100%;display:block}
+  .card-title{font-family:Georgia,"DejaVu Serif",serif;font-size:17px;font-weight:bold;display:block}
+  .card-meta{font-size:13px;color:var(--muted);display:block;margin-top:2px}
+  .dep{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:bold;margin-top:6px}
+  .badge-tp{background:var(--text);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;letter-spacing:.04em}
+  .level{display:inline-block;font-size:12px;font-weight:bold;border:1.5px solid var(--text);border-radius:4px;padding:0 5px;margin-left:4px}
+  .heart{width:48px;height:48px;align-self:center;margin-right:10px;border-radius:50%;border:2px solid var(--line);background:#fff;font-size:20px;color:var(--primary);cursor:pointer;flex:none}
+  .heart[aria-pressed=true]{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+  .detail-hero{height:180px;border-radius:18px;overflow:hidden;margin-bottom:14px}
+  .detail-hero svg{width:100%;height:100%;display:block}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+  .facts div{background:var(--surface);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--muted)}
+  .facts b{display:block;font-size:17px;color:var(--text)}
+  .desc{font-size:15px;line-height:1.55}
+
+  .empty{text-align:center;padding:40px 10px}
+  .empty p{margin:8px 0 4px}
+
+  nav.tabbar{display:flex;border-top:1px solid var(--line);background:var(--surface)}
+  .tab{flex:1;min-height:64px;border:0;background:none;font-size:14px;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+  .tab .ico{font-size:20px}
+  .tab[aria-current=page]{color:var(--primary);font-weight:bold;box-shadow:inset 0 3px 0 var(--primary)}
+
+  .toast{position:absolute;left:16px;right:16px;bottom:80px;background:var(--text);color:#fff;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:15px}
+  .toast[hidden]{display:none}
+  .toast button{background:none;border:0;color:#fff;font-weight:bold;text-decoration:underline;font-size:15px;min-height:48px;min-width:48px;padding:0 8px;cursor:pointer}
+
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="app">
+  <main id="main">
+
+    <!-- 1. RECHERCHE -->
+    <section class="screen" id="screen-recherche" aria-labelledby="t-recherche">
+      <div class="hero">
+        <svg aria-hidden="true" viewBox="0 0 390 200" preserveAspectRatio="none"><rect width="390" height="200" fill="#a9c6b3"/><path d="M0 165 L90 120 L160 150 L250 105 L390 160 L390 200 L0 200Z" fill="#5f8a6c"/><path d="M0 185 L110 150 L200 178 L310 140 L390 170 L390 200 L0 200Z" fill="#2f5d43"/><circle cx="330" cy="44" r="20" fill="#f3e2b8"/></svg>
+        <div class="hero-title"><h1 id="t-recherche" tabindex="-1">Balado</h1><p>Ta prochaine balade commence ici</p></div>
+      </div>
+      <form class="search-box" id="search-form" novalidate>
+        <label for="lieu">Où veux-tu marcher ?</label>
+        <input type="text" id="lieu" name="lieu" placeholder="Ville ou arrêt, ex. Lausanne" autocomplete="off" aria-describedby="lieu-err">
+        <p class="error" id="lieu-err" hidden role="alert">⚠ Écris une ville ou un arrêt pour lancer la recherche.</p>
+        <button type="submit" class="btn btn-primary">Trouver une balade</button>
+      </form>
+      <h2 id="t-recent">Recherches récentes</h2>
+      <div class="chips" role="group" aria-labelledby="t-recent">
+        <button type="button" class="chip" data-recent="Lausanne">Lausanne</button>
+        <button type="button" class="chip" data-recent="Morges">Morges</button>
+        <button type="button" class="chip" data-recent="Vevey">Vevey</button>
+      </div>
+    </section>
+
+    <!-- 2. RÉSULTATS -->
+    <section class="screen" id="screen-resultats" aria-labelledby="t-resultats" hidden>
+      <button type="button" class="back" data-go="recherche" aria-label="Retour à la recherche">←</button>
+      <h1 id="t-resultats" tabindex="-1">Près de <span id="res-lieu">Lausanne</span></h1>
+      <p class="muted" id="res-count" aria-live="polite"></p>
+      <h2 id="t-filtre">Difficulté</h2>
+      <div class="chips" role="group" aria-labelledby="t-filtre" id="filtres">
+        <button type="button" class="chip" data-level="all" aria-pressed="true">Toutes</button>
+        <button type="button" class="chip" data-level="Facile" aria-pressed="false">Facile</button>
+        <button type="button" class="chip" data-level="Moyen" aria-pressed="false">Moyen</button>
+        <button type="button" class="chip" data-level="Difficile" aria-pressed="false">Difficile</button>
+      </div>
+      <ul class="cards" id="res-list"></ul>
+    </section>
+
+    <!-- 3. FICHE RANDO -->
+    <section class="screen" id="screen-fiche" aria-labelledby="t-fiche" hidden>
+      <button type="button" class="back" id="fiche-back" aria-label="Retour">←</button>
+      <div class="detail-hero" aria-hidden="true" id="fiche-img"></div>
+      <h1 id="t-fiche" tabindex="-1"></h1>
+      <p class="dep" id="fiche-dep"></p>
+      <div class="facts" id="fiche-facts"></div>
+      <p class="desc" id="fiche-desc"></p>
+      <button type="button" class="btn btn-primary" id="fiche-fav" aria-pressed="false">♡ Ajouter aux favoris</button>
+    </section>
+
+    <!-- 4. FAVORIS -->
+    <section class="screen" id="screen-favoris" aria-labelledby="t-favoris" hidden>
+      <h1 id="t-favoris" tabindex="-1">Mes favoris</h1>
+      <p class="muted" id="fav-count"></p>
+      <ul class="cards" id="fav-list"></ul>
+      <div class="empty" id="fav-empty" hidden>
+        <p><b>Pas encore de favoris</b></p>
+        <p class="muted">Touche ♡ sur une balade pour la retrouver ici.</p>
+        <button type="button" class="btn btn-primary" data-go="recherche">Chercher une balade</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toast-msg"></span><button type="button" id="toast-action"></button>
+  </div>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <button type="button" class="tab" data-tab="recherche" aria-current="page"><span class="ico" aria-hidden="true">⌕</span>Explorer</button>
+    <button type="button" class="tab" data-tab="favoris"><span class="ico" aria-hidden="true">♥</span>Favoris</button>
+  </nav>
+</div>
+
+<script>
+const RANDOS = [
+  {id:1, nom:"Bois de Sauvabelin", lieu:"Lausanne", duree:"1 h 30", km:"5 km", deniv:"+120 m", niveau:"Facile", tp:"BUS", dep:"Sallaz", acces:"6 min à pied", desc:"Une boucle en forêt autour du lac de Sauvabelin, avec la tour en bois et sa vue sur le Léman.", c:["#bcd3c1","#4f7a5d"]},
+  {id:2, nom:"Rives de la Venoge", lieu:"Lausanne", duree:"2 h", km:"7 km", deniv:"+60 m", niveau:"Facile", tp:"TRAIN", dep:"Denges", acces:"9 min", desc:"Une balade plate le long de la rivière jusqu'au lac. Idéale pour une première sortie.", c:["#c9dccf","#5f8a6c"]},
+  {id:3, nom:"Lavaux, terrasses", lieu:"Lausanne", duree:"2 h 45", km:"9 km", deniv:"+350 m", niveau:"Moyen", tp:"TRAIN", dep:"Cully", acces:"12 min", desc:"Entre vignes et lac, une vue imprenable sur les Alpes. Retour en train depuis Chexbres.", c:["#d9cfa9","#8b9a5b"]},
+  {id:4, nom:"Gorges du Chauderon", lieu:"Lausanne", duree:"3 h 30", km:"11 km", deniv:"+640 m", niveau:"Difficile", tp:"TRAIN", dep:"Montreux", acces:"22 min", desc:"Montée raide dans les gorges, cascades et passerelles. Bonnes chaussures conseillées.", c:["#b9c4cf","#3a4658"]},
+  {id:5, nom:"Bord du lac de Morges", lieu:"Morges", duree:"1 h 15", km:"4 km", deniv:"+20 m", niveau:"Facile", tp:"TRAIN", dep:"Morges", acces:"0 min", desc:"Promenade au bord de l'eau, du château au parc de l'Indépendance.", c:["#c9dccf","#5f8a6c"]},
+  {id:6, nom:"Mont Pèlerin", lieu:"Vevey", duree:"2 h 30", km:"7 km", deniv:"+480 m", niveau:"Moyen", tp:"FUNI", dep:"Vevey-Corseaux", acces:"5 min", desc:"Montée par la forêt jusqu'au belvédère, descente en funiculaire possible.", c:["#d9cfa9","#6f8a4b"]},
+];
+const favs = new Set();
+let lieu = "Lausanne", niveau = "all", ficheId = null, ficheFrom = "resultats";
+
+const $ = s => document.querySelector(s);
+const svg = c => `<svg viewBox="0 0 100 100" preserveAspectRatio="none"><rect width="100" height="100" fill="${c[0]}"/><path d="M0 70 L25 40 L45 62 L70 30 L100 60 L100 100 L0 100Z" fill="${c[1]}"/></svg>`;
+
+function show(name){
+  document.querySelectorAll('.screen').forEach(s => s.hidden = s.id !== 'screen-'+name);
+  document.querySelectorAll('.tab').forEach(t => {
+    const on = (t.dataset.tab === name) || (t.dataset.tab === 'recherche' && name !== 'favoris');
+    on ? t.setAttribute('aria-current','page') : t.removeAttribute('aria-current');
+  });
+  $('#main').scrollTop = 0;
+  // Le focus va sur le titre du nouvel écran (utile au clavier et au lecteur d'écran)
+  const h = document.querySelector('#screen-'+name+' h1'); if (h) h.focus();
+}
+
+function card(r){
+  const on = favs.has(r.id);
+  return `<li class="card">
+    <button type="button" class="card-open" data-open="${r.id}">
+      <span class="thumb" aria-hidden="true">${svg(r.c)}</span>
+      <span>
+        <span class="card-title">${r.nom}</span>
+        <span class="card-meta">${r.duree} · ${r.km} <span class="level">${r.niveau}</span></span>
+        <span class="dep"><span class="badge-tp">${r.tp}</span>${r.dep} · ${r.acces}</span>
+      </span>
+    </button>
+    <button type="button" class="heart" data-fav="${r.id}" aria-pressed="${on}" aria-label="${on?'Retirer':'Ajouter'} ${r.nom} ${on?'des':'aux'} favoris">${on?'♥':'♡'}</button>
+  </li>`;
+}
+
+function renderResults(){
+  const list = RANDOS.filter(r => r.lieu.toLowerCase() === lieu.toLowerCase() && (niveau==='all' || r.niveau===niveau));
+  $('#res-lieu').textContent = lieu;
+  $('#res-count').textContent = list.length ? `${list.length} balade${list.length>1?'s':''} trouvée${list.length>1?'s':''}` : '';
+  $('#res-list').innerHTML = list.length ? list.map(card).join('') :
+    `<li class="empty"><p><b>Aucune balade trouvée</b></p><p class="muted">Essaie une ville proche, ou enlève le filtre.</p><button type="button" class="btn btn-secondary" data-go="recherche">Changer de lieu</button></li>`;
+  document.querySelectorAll('#filtres .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.level===niveau));
+}
+
+function renderFavs(){
+  const list = RANDOS.filter(r => favs.has(r.id));
+  $('#fav-count').textContent = list.length ? `${list.length} balade${list.length>1?'s':''} enregistrée${list.length>1?'s':''}` : '';
+  $('#fav-list').innerHTML = list.map(card).join('');
+  $('#fav-empty').hidden = list.length > 0;
+}
+
+function renderFiche(){
+  const r = RANDOS.find(x => x.id === ficheId);
+  $('#t-fiche').textContent = r.nom;
+  $('#fiche-img').innerHTML = svg(r.c);
+  $('#fiche-dep').innerHTML = `<span class="badge-tp">${r.tp}</span> Départ : ${r.dep} · ${r.acces}`;
+  $('#fiche-facts').innerHTML = `<div>Durée<b>${r.duree}</b></div><div>Distance<b>${r.km}</b></div><div>Dénivelé<b>${r.deniv}</b></div><div>Niveau<b>${r.niveau}</b></div>`;
+  $('#fiche-desc').textContent = r.desc;
+  const on = favs.has(r.id), b = $('#fiche-fav');
+  b.setAttribute('aria-pressed', on);
+  b.className = 'btn ' + (on ? 'btn-secondary' : 'btn-primary');
+  b.textContent = on ? '♥ Dans tes favoris' : '♡ Ajouter aux favoris';
+}
+
+let toastTimer;
+function toast(msg, actionLabel, action){
+  $('#toast-msg').textContent = msg;
+  const a = $('#toast-action'); a.textContent = actionLabel; a.onclick = () => { $('#toast').hidden = true; action(); };
+  $('#toast').hidden = false;
+  // Reste 10 s, et ne disparaît pas tant que le focus clavier est dessus
+  clearTimeout(toastTimer);
+  const hide = () => { if ($('#toast').contains(document.activeElement)) { toastTimer = setTimeout(hide, 2000); } else { $('#toast').hidden = true; } };
+  toastTimer = setTimeout(hide, 10000);
+}
+
+function toggleFav(id){
+  const r = RANDOS.find(x => x.id === id);
+  if (favs.has(id)) { favs.delete(id); toast(`Retirée des favoris`, 'Annuler', () => { favs.add(id); refresh(); const h=document.querySelector(`[data-fav="${id}"]`); if (h) h.focus(); }); }
+  else { favs.add(id); toast(`✓ Ajoutée à tes favoris`, 'Voir', () => { renderFavs(); show('favoris'); }); }
+  refresh();
+}
+function refresh(){
+  if (!$('#screen-resultats').hidden) renderResults();
+  if (!$('#screen-favoris').hidden) renderFavs();
+  if (!$('#screen-fiche').hidden) renderFiche();
+}
+
+// Recherche
+$('#search-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('#lieu').value.trim();
+  if (!v) { $('#lieu').setAttribute('aria-invalid','true'); $('#lieu-err').hidden = false; $('#lieu').focus(); return; }
+  $('#lieu').removeAttribute('aria-invalid'); $('#lieu-err').hidden = true;
+  lieu = v.charAt(0).toUpperCase()+v.slice(1); niveau = 'all'; renderResults(); show('resultats');
+});
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.dataset.recent){ $('#lieu').value = t.dataset.recent; lieu = t.dataset.recent; niveau='all'; renderResults(); show('resultats'); }
+  else if (t.dataset.level){ niveau = t.dataset.level; renderResults(); }
+  else if (t.dataset.open){ ficheId = +t.dataset.open; ficheFrom = $('#screen-favoris').hidden ? 'resultats' : 'favoris'; renderFiche(); show('fiche'); }
+  else if (t.dataset.fav){ const id=+t.dataset.fav; toggleFav(id); const again=document.querySelector(`[data-fav="${id}"]`); (again || $('#toast-action')).focus(); }
+  else if (t.id === 'fiche-fav'){ toggleFav(ficheId); $('#fiche-fav').focus(); }
+  else if (t.id === 'fiche-back'){ ficheFrom==='favoris' ? (renderFavs(), show('favoris')) : (renderResults(), show('resultats')); }
+  else if (t.dataset.go){ show(t.dataset.go); }
+  else if (t.dataset.tab){ if (t.dataset.tab==='favoris') renderFavs(); show(t.dataset.tab); }
+});
+</script>
+</body>
+</html>

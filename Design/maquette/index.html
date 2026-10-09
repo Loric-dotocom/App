@@ -98,7 +98,7 @@
     <section class="screen" id="screen-recherche" aria-labelledby="t-recherche">
       <div class="hero">
         <svg aria-hidden="true" viewBox="0 0 390 200" preserveAspectRatio="none"><rect width="390" height="200" fill="#a9c6b3"/><path d="M0 165 L90 120 L160 150 L250 105 L390 160 L390 200 L0 200Z" fill="#5f8a6c"/><path d="M0 185 L110 150 L200 178 L310 140 L390 170 L390 200 L0 200Z" fill="#2f5d43"/><circle cx="330" cy="44" r="20" fill="#f3e2b8"/></svg>
-        <div class="hero-title"><h1 id="t-recherche" tabindex="-1">Balado</h1><p>Ta prochaine balade commence ici</p></div>
+        <div class="hero-title"><h1 id="t-recherche" tabindex="-1">Balado</h1><p>Tes balades en bus ou en train</p></div>
       </div>
       <form class="search-box" id="search-form" novalidate>
         <label for="lieu">Où veux-tu marcher ?</label>
@@ -165,12 +165,12 @@
 
 <script>
 const RANDOS = [
-  {id:1, nom:"Bois de Sauvabelin", lieu:"Lausanne", duree:"1 h 30", km:"5 km", deniv:"+120 m", niveau:"Facile", tp:"BUS", dep:"Sallaz", acces:"6 min à pied", desc:"Une boucle en forêt autour du lac de Sauvabelin, avec la tour en bois et sa vue sur le Léman.", c:["#bcd3c1","#4f7a5d"]},
-  {id:2, nom:"Rives de la Venoge", lieu:"Lausanne", duree:"2 h", km:"7 km", deniv:"+60 m", niveau:"Facile", tp:"TRAIN", dep:"Denges", acces:"9 min", desc:"Une balade plate le long de la rivière jusqu'au lac. Idéale pour une première sortie.", c:["#c9dccf","#5f8a6c"]},
-  {id:3, nom:"Lavaux, terrasses", lieu:"Lausanne", duree:"2 h 45", km:"9 km", deniv:"+350 m", niveau:"Moyen", tp:"TRAIN", dep:"Cully", acces:"12 min", desc:"Entre vignes et lac, une vue imprenable sur les Alpes. Retour en train depuis Chexbres.", c:["#d9cfa9","#8b9a5b"]},
-  {id:4, nom:"Gorges du Chauderon", lieu:"Lausanne", duree:"3 h 30", km:"11 km", deniv:"+640 m", niveau:"Difficile", tp:"TRAIN", dep:"Montreux", acces:"22 min", desc:"Montée raide dans les gorges, cascades et passerelles. Bonnes chaussures conseillées.", c:["#b9c4cf","#3a4658"]},
-  {id:5, nom:"Bord du lac de Morges", lieu:"Morges", duree:"1 h 15", km:"4 km", deniv:"+20 m", niveau:"Facile", tp:"TRAIN", dep:"Morges", acces:"0 min", desc:"Promenade au bord de l'eau, du château au parc de l'Indépendance.", c:["#c9dccf","#5f8a6c"]},
-  {id:6, nom:"Mont Pèlerin", lieu:"Vevey", duree:"2 h 30", km:"7 km", deniv:"+480 m", niveau:"Moyen", tp:"FUNI", dep:"Vevey-Corseaux", acces:"5 min", desc:"Montée par la forêt jusqu'au belvédère, descente en funiculaire possible.", c:["#d9cfa9","#6f8a4b"]},
+  {id:1, nom:"Bois de Sauvabelin", lieu:"Lausanne", duree:"1 h 30", km:"5 km", deniv:"+120 m", niveau:"Facile", tp:"BUS", dep:"Arrêt Sallaz", acces:"puis 6 min à pied", desc:"Une boucle en forêt autour du lac de Sauvabelin, avec la tour en bois et sa vue sur le Léman.", c:["#bcd3c1","#4f7a5d"]},
+  {id:2, nom:"Rives de la Venoge", lieu:"Lausanne", duree:"2 h", km:"7 km", deniv:"+60 m", niveau:"Facile", tp:"TRAIN", dep:"Gare de Denges", acces:"9 min de train", desc:"Une balade plate le long de la rivière jusqu'au lac. Idéale pour une première sortie.", c:["#c9dccf","#5f8a6c"]},
+  {id:3, nom:"Lavaux, terrasses", lieu:"Lausanne", duree:"2 h 45", km:"9 km", deniv:"+350 m", niveau:"Moyen", tp:"TRAIN", dep:"Gare de Cully", acces:"12 min de train", desc:"Entre vignes et lac, une vue imprenable sur les Alpes. Retour en train depuis Chexbres.", c:["#d9cfa9","#8b9a5b"]},
+  {id:4, nom:"Gorges du Chauderon", lieu:"Lausanne", duree:"3 h 30", km:"11 km", deniv:"+640 m", niveau:"Difficile", tp:"TRAIN", dep:"Gare de Montreux", acces:"22 min de train", desc:"Montée raide dans les gorges, cascades et passerelles. Bonnes chaussures conseillées.", c:["#b9c4cf","#3a4658"]},
+  {id:5, nom:"Bord du lac de Morges", lieu:"Morges", duree:"1 h 15", km:"4 km", deniv:"+20 m", niveau:"Facile", tp:"TRAIN", dep:"Gare de Morges", acces:"départ devant la gare", desc:"Promenade au bord de l'eau, du château au parc de l'Indépendance.", c:["#c9dccf","#5f8a6c"]},
+  {id:6, nom:"Mont Pèlerin", lieu:"Vevey", duree:"2 h 30", km:"7 km", deniv:"+480 m", niveau:"Moyen", tp:"TRAIN", dep:"Gare de Vevey", acces:"puis 5 min à pied", desc:"Montée par la forêt jusqu'au belvédère, descente en funiculaire possible.", c:["#d9cfa9","#6f8a4b"]},
 ];
 const favs = new Set();
 let lieu = "Lausanne", niveau = "all", ficheId = null, ficheFrom = "resultats";
@@ -224,7 +224,7 @@ function renderFiche(){
   const r = RANDOS.find(x => x.id === ficheId);
   $('#t-fiche').textContent = r.nom;
   $('#fiche-img').innerHTML = svg(r.c);
-  $('#fiche-dep').innerHTML = `<span class="badge-tp">${r.tp}</span> Départ : ${r.dep} · ${r.acces}`;
+  $('#fiche-dep').innerHTML = `<span class="badge-tp">${r.tp}</span> Départ : ${r.dep} · ${r.acces}<span class="sr-only"> (trajet depuis le lieu recherché)</span>`;
   $('#fiche-facts').innerHTML = `<div>Durée<b>${r.duree}</b></div><div>Distance<b>${r.km}</b></div><div>Dénivelé<b>${r.deniv}</b></div><div>Niveau<b>${r.niveau}</b></div>`;
   $('#fiche-desc').textContent = r.desc;
   const on = favs.has(r.id), b = $('#fiche-fav');

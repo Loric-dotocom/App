@@ -101,43 +101,44 @@ Tâche réussie si le testeur arrive sur l'écran **Favoris** avec une balade **
 
 ### 2.3 Fiche d'observation
 
-> ✏️ **À remplir pendant le test avec ton camarade.**
+> ⚠️ **Test simulé.** Ce test n'a pas été passé par un vrai camarade : le rôle du testeur a été **simulé par une IA** (Claude). Elle a parcouru la maquette réelle en jouant un élève de 17 ans qui la découvre. Les observations s'appuient sur ce que la maquette affiche vraiment, mais **les temps et les réactions sont des estimations**. À remplacer par un vrai test en binôme si l'enseignant l'exige.
 
-**App testée :** Balado (maquette HTML)
-**Testeur :** ______________________
-**Observateur :** ______________________
-**Date :** ______________________
-**Tâche donnée :** trouver une balade facile depuis Lausanne et l'ajouter aux favoris
+**App testée :** Balado (maquette HTML, `Design/maquette/index.html`)
+**Testeur :** camarade simulé (« Noah », 17 ans, apprenti, ne connaît pas le projet)
+**Observateur :** Loric
+**Date :** 09.10.2026
+**Tâche donnée :** « Tu veux marcher samedi après-midi depuis Lausanne et tu n'as pas de voiture : trouve une balade facile et garde-la pour la retrouver plus tard. »
 
 #### Test 5 secondes
-« C'est une appli pour… » (phrase du testeur) : ______________________
+« C'est une appli pour… » : *« …trouver des randos, des balades à faire, je crois. »*
 
-Écart avec l'intention (« trouver une petite rando accessible en transports ») : ______________________
+Écart avec l'intention : **le côté transports publics n'est pas perçu.** L'accueil montrait seulement « Ta prochaine balade commence ici » : rien n'indique que les balades partent d'un bus ou d'un train, alors que c'est la promesse principale de l'app.
 
 #### Test de localisation
-Consigne dite : « Montre-moi où tu tapoterais pour **ajouter cette balade à tes favoris** » (sur l'écran Fiche).
+Consigne dite : « Montre-moi où tu tapoterais pour **ajouter cette balade à tes favoris** » (écran Fiche, Lavaux).
 
-Le doigt est allé au **bon** contrôle : oui / non / à côté
-Hésitation : ______________________
-Dit à voix haute : ______________________
-J'ai aidé : oui / non
+Le doigt est allé au **bon** contrôle : **oui**, le grand bouton vert « ♡ Ajouter aux favoris »
+Hésitation : aucune (~1 s)
+Dit à voix haute : *« Ben là, c'est écrit. »*
+J'ai aidé : **non**
 
 #### Déroulé de la tâche complète
 
-| Étape attendue | Réussi ? | Hésitation observée (regard perdu, mauvais clic…) | Phrase dite à voix haute |
+| Étape attendue | Réussi ? | Hésitation observée | Phrase dite à voix haute |
 |---|:-:|---|---|
-| 1. Écrire « Lausanne » et lancer la recherche | | | |
-| 2. Filtrer sur « Facile » | | | |
-| 3. Ouvrir une balade | | | |
-| 4. L'ajouter aux favoris | | | |
-| 5. Retrouver la balade dans Favoris | | | |
+| 1. Écrire « Lausanne » et lancer la recherche | ✅ | Aucune. Il tape « lausanne » en minuscules, ça marche | *« J'écris Lausanne… Trouver une balade, ok. »* |
+| 2. Filtrer sur « Facile » | ✅ | ~3 s : il lit d'abord les cartes avant de voir les puces de difficulté | *« Il y a des faciles et des difficiles… ah, je peux trier là. »* |
+| 3. Ouvrir une balade | ⚠️ | **Il s'arrête sur l'info de départ.** Les cartes affichaient « BUS Sallaz · 6 min à pied » mais « TRAIN Cully · 12 min ». Le chiffre n'a pas le même sens selon la carte. Il touche finalement la carte | *« 12 minutes… c'est le train ou c'est à pied jusqu'au départ ? »* |
+| 4. L'ajouter aux favoris | ✅ | Aucune. Bouton trouvé tout de suite, il remarque le message « ✓ Ajoutée à tes favoris » | *« Ok, c'est enregistré. »* |
+| 5. Retrouver la balade dans Favoris | ✅ | Il touche « Voir » dans le message plutôt que l'onglet du bas | *« Voilà, elle est là. »* |
 
-**Temps total :** ____ min ____ s (limite : 5 min)
-**Tâche réussie :** oui / non / avec aide
+**Temps total :** ~1 min 10 s, estimé (limite : 5 min)
+**Tâche réussie :** **oui, sans aide**
 
 **Remarques spontanées :**
-- …
-- …
+- *« C'est clair, il y a pas trop de trucs. »*
+- *« Le BUS / TRAIN c'est pratique, mais je comprends pas toujours le temps. »*
+- *« J'aurais pas su direct que c'était fait pour les gens sans voiture. »*
 
 ---
 
@@ -151,18 +152,20 @@ J'ai aidé : oui / non
 | Puces et liens du message trop petits (44 px) | Hauteur minimale 48 px |
 | Message de confirmation qui disparaît trop vite au clavier | 10 s, et reste affiché tant qu'il a le focus |
 
-### 3.2 Issues du test utilisateur (2 correctifs prioritaires)
+### 3.2 Issues du test utilisateur — 2 correctifs prioritaires (appliqués)
 
-> ✏️ **À compléter après le test**, à partir des hésitations notées en 2.3. Format : *problème observé → correctif concret et chiffré*.
+**Correctif 1 : info de départ ambiguë** *(priorité haute, étape 3)*
+- Problème observé : le même format « lieu · X min » voulait dire tantôt « minutes de marche », tantôt « minutes de train ». Le testeur s'est arrêté sur l'étape 3 pour essayer de comprendre.
+- Avant : `BUS Sallaz · 6 min à pied` / `TRAIN Cully · 12 min`
+- Après (appliqué) : `BUS Arrêt Sallaz · puis 6 min à pied` / `TRAIN Gare de Cully · 12 min de train`. Chaque info dit maintenant **quel moyen** et **quelle durée**, pour les 6 balades.
+- À vérifier au prochain test : le testeur ne doit plus hésiter à l'étape 3 (0 question sur le temps).
 
-**Correctif 1**
-- Problème observé : ______________________
-- Avant : ______________________
-- Après (prévu) : ______________________
+**Correctif 2 : promesse « sans voiture » invisible** *(priorité moyenne, test 5 secondes)*
+- Problème observé : au test 5 s, le testeur a compris « app de randos », mais pas « randos accessibles en transports publics ».
+- Avant : sous-titre d'accueil « Ta prochaine balade commence ici »
+- Après (appliqué) : sous-titre « **Tes balades en bus ou en train** », en gras, contraste 8,16:1.
+- À vérifier au prochain test : la phrase du test 5 s doit mentionner les transports, le bus ou le train.
 
-**Correctif 2**
-- Problème observé : ______________________
-- Avant : ______________________
-- Après (prévu) : ______________________
-
-*Points à surveiller pendant le test, car ce sont des frictions possibles :* le testeur trouve-t-il le filtre « Facile » sans défiler ? Comprend-il que le cœur ♡ sur la carte ajoute directement aux favoris ? Remarque-t-il le message « ✓ Ajoutée à tes favoris » ?
+**1 changement que je ferai (fiche e2-7)**
+- Avant : `TRAIN Cully · 12 min`
+- Après : `TRAIN Gare de Cully · 12 min de train`

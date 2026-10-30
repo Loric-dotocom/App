@@ -1,0 +1,582 @@
+/* =========================================================
+   Balado – Feuille de style
+   Approche "mobile first" : les styles de base sont pour
+   le téléphone, puis on ajoute des règles pour les écrans
+   plus grands avec @media (min-width: ...).
+   ========================================================= */
+
+
+/* ---------- 1. VARIABLES CSS (design tokens) ---------- */
+:root {
+  /* Couleurs */
+  --vert-fonce: #1f3d2b;
+  --vert: #2f6b48;
+  --vert-clair: #e3efe6;
+  --sable: #f7f4ee;
+  --blanc: #ffffff;
+  --texte: #1c2420;
+  --texte-doux: #56625b;
+  --bordure: #d6d9d3;
+  --erreur: #b3261e;
+  --coeur: #d9534f;
+
+  /* Couleurs des badges de difficulté */
+  --facile-fond: #dcefdf;   --facile-texte: #1d5a32;
+  --moyen-fond: #fbeacb;    --moyen-texte: #7a4b00;
+  --difficile-fond: #f8d8d5; --difficile-texte: #8c1d16;
+
+  /* Typographie */
+  --police: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --taille-s: 0.875rem;
+  --taille-m: 1rem;
+  --taille-l: 1.25rem;
+  --taille-xl: clamp(1.75rem, 5vw + 0.5rem, 3rem); /* s'adapte à la largeur */
+
+  /* Espacements */
+  --espace-xs: 0.25rem;
+  --espace-s: 0.5rem;
+  --espace-m: 1rem;
+  --espace-l: 1.5rem;
+  --espace-xl: 2.5rem;
+
+  /* Formes */
+  --arrondi: 10px;
+  --arrondi-pilule: 999px;
+  --ombre: 0 2px 8px rgba(31, 61, 43, 0.08);
+
+  /* Tailles d'interface */
+  --hauteur-tactile: 52px;      /* boutons et champ (≥ 44px) */
+  --hauteur-tabbar: 64px;
+  --largeur-max: 1100px;
+}
+
+
+/* ---------- 2. BASE ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--police);
+  font-size: var(--taille-m);
+  line-height: 1.5;
+  color: var(--texte);
+  background: var(--sable);
+  /* place pour la barre de navigation fixée en bas (mobile) */
+  padding-bottom: var(--hauteur-tabbar);
+}
+
+h1, h2, h3, p, ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+/* Contour bien visible pour la navigation au clavier */
+:focus-visible {
+  outline: 3px solid var(--vert);
+  outline-offset: 2px;
+}
+
+
+/* ---------- 3. EN-TÊTE ET NAVIGATION ---------- */
+.entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--espace-m);
+  background: var(--blanc);
+  border-bottom: 1px solid var(--bordure);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  font-size: var(--taille-l);
+  font-weight: 700;
+  color: var(--vert-fonce);
+  text-decoration: none;
+}
+
+.logo__icone {
+  width: 28px;
+  height: 28px;
+  fill: var(--vert);
+}
+
+/* Mobile : la navigation est une barre fixée en bas de l'écran */
+.nav-principale {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  height: var(--hauteur-tabbar);
+  background: var(--blanc);
+  border-top: 1px solid var(--bordure);
+}
+
+.nav-principale__lien {
+  flex: 1;                       /* les 2 onglets prennent la même largeur */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  color: var(--texte-doux);
+  text-decoration: none;
+}
+
+.nav-principale__lien svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.nav-principale__lien[aria-current="page"] {
+  color: var(--vert-fonce);
+  font-weight: 700;
+  background: var(--vert-clair);
+}
+
+
+/* ---------- 4. MISE EN PAGE DE L'ACCUEIL (CSS Grid) ---------- */
+.accueil {
+  display: grid;
+  grid-template-columns: 1fr;          /* mobile : une seule colonne */
+  grid-template-areas:
+    "hero"
+    "recentes"
+    "idees";
+  gap: var(--espace-l);
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding-bottom: var(--espace-xl);
+}
+
+.hero     { grid-area: hero; }
+.recentes { grid-area: recentes; }
+.idees    { grid-area: idees; }
+
+.recentes,
+.idees {
+  padding: 0 var(--espace-m);
+}
+
+.titre-section {
+  font-size: var(--taille-s);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texte-doux);
+  margin-bottom: var(--espace-s);
+}
+
+
+/* ---------- 5. HERO + FORMULAIRE DE RECHERCHE ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--vert-fonce);
+  color: var(--blanc);
+}
+
+.hero__contenu {
+  position: relative;
+  z-index: 1;                          /* au-dessus du décor */
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+  padding: var(--espace-xl) var(--espace-m) 110px;
+}
+
+.hero h1 {
+  font-size: var(--taille-xl);
+  line-height: 1.15;
+}
+
+.hero__intro {
+  color: var(--vert-clair);
+  margin-bottom: var(--espace-m);
+}
+
+.hero__decor {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+}
+
+.montagne-loin { fill: var(--vert); }
+.montagne-pres { fill: var(--sable); }
+
+.recherche {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+}
+
+.recherche__label {
+  font-size: var(--taille-s);
+  font-weight: 700;
+}
+
+/* Mobile : champ et bouton l'un sous l'autre */
+.recherche__ligne {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-s);
+}
+
+.recherche__champ {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  height: var(--hauteur-tactile);
+  padding: 0 var(--espace-m);
+  background: var(--blanc);
+  border: 2px solid transparent;
+  border-radius: var(--arrondi);
+  color: var(--texte-doux);
+}
+
+.recherche__champ:focus-within {
+  border-color: var(--vert);
+  outline: 3px solid var(--vert-clair);
+}
+
+.recherche__champ svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.recherche__champ input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: var(--texte);
+}
+
+.recherche__champ input:focus {
+  outline: none;                       /* le contour est sur le parent */
+}
+
+/* État d'erreur : pas seulement une couleur (bordure pointillée + icône + texte) */
+.recherche--erreur .recherche__champ {
+  border: 3px dashed var(--erreur);
+}
+
+.recherche__erreur {
+  font-size: var(--taille-s);
+  font-weight: 700;
+}
+
+.recherche__erreur:empty {
+  display: none;
+}
+
+.recherche--erreur .recherche__erreur {
+  display: inline-block;
+  align-self: flex-start;
+  padding: var(--espace-xs) var(--espace-s);
+  background: var(--blanc);
+  color: var(--erreur);
+  border-radius: 6px;
+}
+
+
+/* ---------- 6. BOUTONS ---------- */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--hauteur-tactile);
+  padding: 0 var(--espace-l);
+  border: none;
+  border-radius: var(--arrondi);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bouton--principal {
+  background: #f2b84b;
+  color: var(--vert-fonce);
+}
+
+.bouton--principal:hover {
+  background: #f5c76b;
+}
+
+
+/* ---------- 7. RECHERCHES RÉCENTES ---------- */
+.recentes__liste {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: var(--arrondi);
+}
+
+.recentes__liste li + li {
+  border-top: 1px solid var(--bordure);
+}
+
+.recentes__lien {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--hauteur-tactile);
+  padding: 0 var(--espace-m);
+  text-decoration: none;
+}
+
+.recentes__lien:hover {
+  background: var(--vert-clair);
+}
+
+
+/* ---------- 8. GRILLE ET CARTES DE RANDOS ---------- */
+/* auto-fill + minmax : la grille crée elle-même le bon
+   nombre de colonnes selon la place disponible */
+.grille-randos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--espace-m);
+}
+
+/* Mobile : carte horizontale (photo à gauche) avec Flexbox */
+.carte {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--espace-m);
+  padding: var(--espace-s);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: var(--arrondi);
+  box-shadow: var(--ombre);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.carte:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(31, 61, 43, 0.14);
+}
+
+.carte__photo {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+}
+
+/* Photos provisoires (dégradés) en attendant de vraies images */
+.carte__photo--foret  { background: linear-gradient(160deg, #8fbf7f, #2f6b48); }
+.carte__photo--vignes { background: linear-gradient(160deg, #9fd3e6 0 45%, #b7c96a 45%, #6d8a3a); }
+.carte__photo--gorges { background: linear-gradient(160deg, #c9d6cf, #5d7466 60%, #2c3d33); }
+
+.carte__texte {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--taille-s);
+  color: var(--texte-doux);
+}
+
+.carte__nom {
+  font-size: var(--taille-m);
+  color: var(--texte);
+}
+
+.carte__nom a {
+  text-decoration: none;
+}
+
+/* Le lien s'étend sur toute la carte : on peut toucher n'importe où */
+.carte__nom a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.carte__infos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace-s);
+}
+
+.badge {
+  padding: 1px 8px;
+  border-radius: var(--arrondi-pilule);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge--facile    { background: var(--facile-fond);    color: var(--facile-texte); }
+.badge--moyen     { background: var(--moyen-fond);     color: var(--moyen-texte); }
+.badge--difficile { background: var(--difficile-fond); color: var(--difficile-texte); }
+
+.coeur {
+  position: relative;
+  z-index: 1;                          /* cliquable au-dessus du lien de la carte */
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--bordure);
+  border-radius: 50%;
+  background: var(--blanc);
+  font-size: 1.25rem;
+  color: var(--coeur);
+  cursor: pointer;
+}
+
+.coeur[aria-pressed="true"] {
+  background: var(--coeur);
+  border-color: var(--coeur);
+  color: var(--blanc);
+}
+
+
+/* =========================================================
+   9. RESPONSIVE
+   ========================================================= */
+
+/* ----- Tablette (≥ 600px) ----- */
+@media (min-width: 600px) {
+  /* Champ et bouton côte à côte */
+  .recherche__ligne {
+    flex-direction: row;
+  }
+
+  .recherche__champ {
+    flex: 1;
+  }
+
+  .hero__contenu {
+    padding-left: var(--espace-xl);
+    padding-right: var(--espace-xl);
+  }
+
+  .recentes,
+  .idees {
+    padding: 0 var(--espace-xl);
+  }
+
+  /* Cartes verticales : grande photo en haut */
+  .carte {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .carte__photo {
+    width: 100%;
+    height: 140px;
+    border-radius: 0;
+  }
+
+  .carte__texte {
+    padding: 0 var(--espace-m) var(--espace-m);
+  }
+
+  .coeur {
+    position: absolute;
+    top: var(--espace-s);
+    right: var(--espace-s);
+  }
+}
+
+/* ----- Ordinateur (≥ 900px) ----- */
+@media (min-width: 900px) {
+  body {
+    padding-bottom: 0;                 /* plus de barre en bas */
+  }
+
+  .entete {
+    padding: var(--espace-m) var(--espace-xl);
+  }
+
+  /* La navigation remonte dans l'en-tête */
+  .nav-principale {
+    position: static;
+    height: auto;
+    gap: var(--espace-s);
+    border: none;
+  }
+
+  .nav-principale__lien {
+    flex-direction: row;
+    gap: var(--espace-s);
+    padding: var(--espace-s) var(--espace-m);
+    border-radius: var(--arrondi-pilule);
+    font-size: var(--taille-m);
+  }
+
+  .nav-principale__lien svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-principale__lien:hover {
+    color: var(--vert-fonce);
+  }
+
+  /* Grille à 2 colonnes : recherche + récentes côte à côte */
+  .accueil {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "hero  recentes"
+      "idees idees";
+    padding: var(--espace-xl);
+    gap: var(--espace-xl);
+  }
+
+  .hero {
+    border-radius: 20px;
+  }
+
+  .hero__contenu {
+    padding-top: 3.5rem;
+  }
+
+  .recentes,
+  .idees {
+    padding: 0;
+  }
+
+  .recentes {
+    align-self: start;
+  }
+}
+
+/* Respecte le réglage "réduire les animations" */
+@media (prefers-reduced-motion: reduce) {
+  .carte {
+    transition: none;
+  }
+}

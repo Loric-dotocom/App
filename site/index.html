@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Balado – Trouve ta rando</title>
+  <meta name="description" content="Trouve rapidement une petite randonnée près de chez toi, accessible en transports publics.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header class="entete">
+    <a href="index.html" class="logo">
+      <svg class="logo__icone" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 26 L12 10 L18 19 L22 13 L30 26 Z" />
+      </svg>
+      Balado
+    </a>
+
+    <!-- Navigation : barre du bas sur mobile, menu en haut sur grand écran -->
+    <nav class="nav-principale" aria-label="Navigation principale">
+      <a href="index.html" class="nav-principale__lien" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16 16 L21 21"/></svg>
+        Rechercher
+      </a>
+      <a href="favoris.html" class="nav-principale__lien">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 C5 15 3 11.5 3 8.5 A4.5 4.5 0 0 1 12 6.5 A4.5 4.5 0 0 1 21 8.5 C21 11.5 19 15 12 20 Z"/></svg>
+        Favoris
+      </a>
+    </nav>
+  </header>
+
+  <main class="accueil">
+
+    <!-- ===== 1. RECHERCHE (zone principale) ===== -->
+    <section class="hero" aria-labelledby="titre-recherche">
+      <div class="hero__contenu">
+        <h1 id="titre-recherche">Où veux-tu marcher&nbsp;?</h1>
+        <p class="hero__intro">Des petites randos près de chez toi, accessibles en bus ou en train.</p>
+
+        <form class="recherche" action="resultats.html" method="get" novalidate>
+          <label for="lieu" class="recherche__label">Ville ou arrêt de départ</label>
+          <div class="recherche__ligne">
+            <div class="recherche__champ">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16 16 L21 21"/></svg>
+              <input type="text" id="lieu" name="lieu" list="suggestions-lieux"
+                     placeholder="Ex. Lausanne, Vevey…" autocomplete="off"
+                     aria-describedby="erreur-lieu">
+            </div>
+            <button type="submit" class="bouton bouton--principal">Chercher des randos</button>
+          </div>
+          <p id="erreur-lieu" class="recherche__erreur" aria-live="polite"></p>
+
+          <!-- Suggestions pendant la saisie (user flow, étape 2) -->
+          <datalist id="suggestions-lieux">
+            <option value="Lausanne">
+            <option value="Lausanne, Sallaz">
+            <option value="Morges">
+            <option value="Vevey">
+            <option value="Montreux">
+            <option value="Cully">
+            <option value="Yverdon-les-Bains">
+            <option value="Nyon">
+          </datalist>
+        </form>
+      </div>
+
+      <!-- Décor : montagnes -->
+      <svg class="hero__decor" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="montagne-loin" d="M0 120 L0 70 L60 30 L110 65 L170 15 L240 70 L290 40 L350 75 L400 50 L400 120 Z"/>
+        <path class="montagne-pres" d="M0 120 L0 95 L70 60 L130 95 L200 55 L270 100 L330 70 L400 95 L400 120 Z"/>
+      </svg>
+    </section>
+
+    <!-- ===== 2. RECHERCHES RÉCENTES ===== -->
+    <section class="recentes" aria-labelledby="titre-recentes">
+      <h2 id="titre-recentes" class="titre-section">Recherches récentes</h2>
+      <ul class="recentes__liste">
+        <li>
+          <a href="resultats.html?lieu=Lausanne" class="recentes__lien">
+            <span><span aria-hidden="true">⟲</span> Lausanne</span>
+            <span aria-hidden="true">›</span>
+          </a>
+        </li>
+        <li>
+          <a href="resultats.html?lieu=Morges" class="recentes__lien">
+            <span><span aria-hidden="true">⟲</span> Morges</span>
+            <span aria-hidden="true">›</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 3. IDÉES POUR CE WEEK-END ===== -->
+    <section class="idees" aria-labelledby="titre-idees">
+      <h2 id="titre-idees" class="titre-section">Idées pour ce week-end</h2>
+
+      <ul class="grille-randos">
+        <li class="carte">
+          <div class="carte__photo carte__photo--foret" aria-hidden="true"></div>
+          <div class="carte__texte">
+            <h3 class="carte__nom"><a href="fiche.html?id=sauvabelin">Bois de Sauvabelin</a></h3>
+            <p class="carte__infos">1 h 30 · 5 km <span class="badge badge--facile">Facile</span></p>
+            <p class="carte__depart">Départ : arrêt Sallaz</p>
+          </div>
+          <button type="button" class="coeur" aria-pressed="false" aria-label="Ajouter Bois de Sauvabelin aux favoris">♡</button>
+        </li>
+
+        <li class="carte">
+          <div class="carte__photo carte__photo--vignes" aria-hidden="true"></div>
+          <div class="carte__texte">
+            <h3 class="carte__nom"><a href="fiche.html?id=lavaux">Lavaux, terrasses</a></h3>
+            <p class="carte__infos">2 h 45 · 9 km <span class="badge badge--moyen">Moyen</span></p>
+            <p class="carte__depart">Départ : gare de Cully</p>
+          </div>
+          <button type="button" class="coeur" aria-pressed="false" aria-label="Ajouter Lavaux, terrasses aux favoris">♡</button>
+        </li>
+
+        <li class="carte">
+          <div class="carte__photo carte__photo--gorges" aria-hidden="true"></div>
+          <div class="carte__texte">
+            <h3 class="carte__nom"><a href="fiche.html?id=chauderon">Gorges du Chauderon</a></h3>
+            <p class="carte__infos">3 h 30 · 11 km <span class="badge badge--difficile">Difficile</span></p>
+            <p class="carte__depart">Départ : gare de Montreux</p>
+          </div>
+          <button type="button" class="coeur" aria-pressed="false" aria-label="Ajouter Gorges du Chauderon aux favoris">♡</button>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script src="js/accueil.js"></script>
+</body>
+</html>

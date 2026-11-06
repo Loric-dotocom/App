@@ -36,7 +36,13 @@ Léa tape où elle habite dans la barre de recherche, l'app lui propose plusieur
 Wireframe → [`Design/wireframes/wireframe.html`](Design/wireframes/wireframe.html)
 
 ## Données
-Une quinzaine de fiches de randonnées inventées (JSON local) : nom, région, durée, distance, dénivelé, difficulté, arrêt de départ, description, photo.
+**32 fiches de randonnées** inventées mais réalistes, dans un fichier JSON local : [`data.json`](data.json).
+
+- Chaque fiche contient : nom (`titre`), commune, région, **lieu de recherche**, description, prix du billet, ouvert ou fermé, durée, distance, dénivelé, difficulté, **BUS / TRAIN + arrêt de départ + temps d'accès**, mots-clés et photo.
+- 7 lieux de recherche (Lausanne, Morges, Vevey, Montreux, Cully, Yverdon-les-Bains, Nyon), chacun avec au moins une rando Facile, Moyen et Difficile.
+- Les 6 premières fiches sont celles de la maquette et du wireframe (Bois de Sauvabelin, Lavaux, Gorges du Chauderon…).
+- Le fichier est validé par un schéma : [`data/schema.json`](data/schema.json). Une version enrichie avec coordonnées GPS et horaires de desserte se trouve dans [`data/data-avance.json`](data/data-avance.json).
+- Détail de chaque champ → [`data/README.md`](data/README.md).
 
 ## Contraintes
 - 4 semaines de développement
@@ -58,3 +64,10 @@ Une quinzaine de fiches de randonnées inventées (JSON local) : nom, région, d
 | `Design/wireframes/` | Wireframe basse fidélité (HTML + PNG) |
 | `Design/propositions/` | 3 propositions de design générées par l'IA |
 | `Design/critique.md` | Critique comparative des 3 propositions |
+| `Design/tests-utilisateurs.md` | Audit d'accessibilité et test utilisateur |
+| `Design/maquette/` | Maquette cliquable |
+| `site/` | Site : page d'accueil responsive |
+| `data.json` | Base de données : 32 randonnées |
+| `data/schema.json` | Schéma JSON qui valide `data.json` |
+| `data/data-avance.json` | Données avec coordonnées GPS et horaires |
+| `data/README.md` | Documentation des données |

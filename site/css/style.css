@@ -440,6 +440,9 @@ a {
 .badge--moyen     { background: var(--moyen-fond);     color: var(--moyen-texte); }
 .badge--difficile { background: var(--difficile-fond); color: var(--difficile-texte); }
 
+/* Badge BUS / TRAIN devant l'arrêt de départ (correctif 1 du test utilisateur) */
+.badge--transport { background: var(--vert-fonce); color: var(--blanc); letter-spacing: 0.04em; }
+
 .coeur {
   position: relative;
   z-index: 1;                          /* cliquable au-dessus du lien de la carte */

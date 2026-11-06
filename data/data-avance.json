@@ -1,0 +1,267 @@
+[
+  {
+    "id": 1,
+    "titre": "Bois de Sauvabelin",
+    "commune": "Lausanne",
+    "region": "Vaud",
+    "lieu": "Lausanne",
+    "description": "Une boucle en forêt autour du lac de Sauvabelin, avec la tour en bois et sa vue sur le Léman.",
+    "prixMoyen": 2.30,
+    "estOuvert": true,
+    "duree": 90,
+    "distance": 5.0,
+    "denivele": 120,
+    "difficulte": "Facile",
+    "transport": "BUS",
+    "arretDepart": "Arrêt Sallaz",
+    "acces": "puis 6 min à pied",
+    "tags": ["foret", "lac", "vue"],
+    "image": "images/sauvabelin.jpg",
+    "coordonnees": { "lat": 46.5352, "lng": 6.6447 },
+    "horaires": {
+      "lundi": [
+        { "debut": "05:15", "fin": "23:59" }
+      ],
+      "mardi": [
+        { "debut": "05:15", "fin": "23:59" }
+      ],
+      "mercredi": [
+        { "debut": "05:15", "fin": "23:59" }
+      ],
+      "jeudi": [
+        { "debut": "05:15", "fin": "23:59" }
+      ],
+      "vendredi": [
+        { "debut": "05:15", "fin": "23:59" }
+      ],
+      "samedi": [
+        { "debut": "00:00", "fin": "03:30" },
+        { "debut": "05:30", "fin": "23:59" }
+      ],
+      "dimanche": [
+        { "debut": "00:00", "fin": "03:30" },
+        { "debut": "06:00", "fin": "23:59" }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "titre": "Rives de la Venoge",
+    "commune": "Denges",
+    "region": "Vaud",
+    "lieu": "Lausanne",
+    "description": "Une balade plate le long de la rivière jusqu'au lac. Idéale pour une première sortie.",
+    "prixMoyen": 2.60,
+    "estOuvert": true,
+    "duree": 120,
+    "distance": 7.0,
+    "denivele": 60,
+    "difficulte": "Facile",
+    "transport": "TRAIN",
+    "arretDepart": "Gare de Denges",
+    "acces": "9 min de train",
+    "tags": ["riviere", "plat", "lac"],
+    "image": "images/venoge.jpg",
+    "coordonnees": { "lat": 46.5233, "lng": 6.5393 },
+    "horaires": {
+      "lundi": [
+        { "debut": "05:40", "fin": "23:45" }
+      ],
+      "mardi": [
+        { "debut": "05:40", "fin": "23:45" }
+      ],
+      "mercredi": [
+        { "debut": "05:40", "fin": "23:45" }
+      ],
+      "jeudi": [
+        { "debut": "05:40", "fin": "23:45" }
+      ],
+      "vendredi": [
+        { "debut": "05:40", "fin": "23:45" }
+      ],
+      "samedi": [
+        { "debut": "06:10", "fin": "23:45" }
+      ],
+      "dimanche": [
+        { "debut": "07:10", "fin": "23:15" }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "titre": "Lavaux, terrasses",
+    "commune": "Bourg-en-Lavaux",
+    "region": "Vaud",
+    "lieu": "Lausanne",
+    "description": "Entre vignes et lac, une vue imprenable sur les Alpes. Retour en train depuis Chexbres.",
+    "prixMoyen": 3.40,
+    "estOuvert": true,
+    "duree": 165,
+    "distance": 9.0,
+    "denivele": 350,
+    "difficulte": "Moyen",
+    "transport": "TRAIN",
+    "arretDepart": "Gare de Cully",
+    "acces": "12 min de train",
+    "tags": ["vignes", "lac", "vue"],
+    "image": "images/lavaux.jpg",
+    "coordonnees": { "lat": 46.4889, "lng": 6.7297 },
+    "horaires": {
+      "lundi": [
+        { "debut": "05:30", "fin": "23:50" }
+      ],
+      "mardi": [
+        { "debut": "05:30", "fin": "23:50" }
+      ],
+      "mercredi": [
+        { "debut": "05:30", "fin": "23:50" }
+      ],
+      "jeudi": [
+        { "debut": "05:30", "fin": "23:50" }
+      ],
+      "vendredi": [
+        { "debut": "05:30", "fin": "23:50" }
+      ],
+      "samedi": [
+        { "debut": "06:00", "fin": "23:50" }
+      ],
+      "dimanche": [
+        { "debut": "06:45", "fin": "23:20" }
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "titre": "Gorges du Chauderon",
+    "commune": "Montreux",
+    "region": "Vaud",
+    "lieu": "Lausanne",
+    "description": "Montée raide dans les gorges, cascades et passerelles. Bonnes chaussures conseillées.",
+    "prixMoyen": 6.80,
+    "estOuvert": true,
+    "duree": 210,
+    "distance": 11.0,
+    "denivele": 640,
+    "difficulte": "Difficile",
+    "transport": "TRAIN",
+    "arretDepart": "Gare de Montreux",
+    "acces": "22 min de train",
+    "tags": ["gorges", "cascade", "montagne"],
+    "image": "images/chauderon.jpg",
+    "coordonnees": { "lat": 46.4351, "lng": 6.9107 },
+    "horaires": {
+      "lundi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "mardi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "mercredi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "jeudi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "vendredi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "samedi": [
+        { "debut": "05:30", "fin": "23:59" }
+      ],
+      "dimanche": [
+        { "debut": "06:00", "fin": "23:59" }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "titre": "Bord du lac de Morges",
+    "commune": "Morges",
+    "region": "Vaud",
+    "lieu": "Morges",
+    "description": "Promenade au bord de l'eau, du château au parc de l'Indépendance.",
+    "prixMoyen": 0.00,
+    "estOuvert": true,
+    "duree": 75,
+    "distance": 4.0,
+    "denivele": 20,
+    "difficulte": "Facile",
+    "transport": "TRAIN",
+    "arretDepart": "Gare de Morges",
+    "acces": "départ devant la gare",
+    "tags": ["lac", "plat", "famille"],
+    "image": "images/morges-lac.jpg",
+    "coordonnees": { "lat": 46.5106, "lng": 6.4983 },
+    "horaires": {
+      "lundi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "mardi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "mercredi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "jeudi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "vendredi": [
+        { "debut": "05:00", "fin": "23:59" }
+      ],
+      "samedi": [
+        { "debut": "05:30", "fin": "23:59" }
+      ],
+      "dimanche": [
+        { "debut": "06:00", "fin": "23:59" }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "titre": "Mont Pèlerin",
+    "commune": "Chardonne",
+    "region": "Vaud",
+    "lieu": "Vevey",
+    "description": "Montée par la forêt jusqu'au belvédère, descente en funiculaire possible.",
+    "prixMoyen": 0.00,
+    "estOuvert": true,
+    "duree": 150,
+    "distance": 7.0,
+    "denivele": 480,
+    "difficulte": "Moyen",
+    "transport": "TRAIN",
+    "arretDepart": "Gare de Vevey",
+    "acces": "puis 5 min à pied",
+    "tags": ["foret", "vue", "funiculaire"],
+    "image": "images/mont-pelerin.jpg",
+    "coordonnees": { "lat": 46.4630, "lng": 6.8433 },
+    "horaires": {
+      "lundi": [
+        { "debut": "06:30", "fin": "12:00" },
+        { "debut": "13:00", "fin": "20:30" }
+      ],
+      "mardi": [
+        { "debut": "06:30", "fin": "12:00" },
+        { "debut": "13:00", "fin": "20:30" }
+      ],
+      "mercredi": [
+        { "debut": "06:30", "fin": "12:00" },
+        { "debut": "13:00", "fin": "20:30" }
+      ],
+      "jeudi": [
+        { "debut": "06:30", "fin": "12:00" },
+        { "debut": "13:00", "fin": "20:30" }
+      ],
+      "vendredi": [
+        { "debut": "06:30", "fin": "12:00" },
+        { "debut": "13:00", "fin": "20:30" }
+      ],
+      "samedi": [
+        { "debut": "07:30", "fin": "20:30" }
+      ],
+      "dimanche": [
+        { "debut": "08:00", "fin": "20:30" }
+      ]
+    }
+  }
+]

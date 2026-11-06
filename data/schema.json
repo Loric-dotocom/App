@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://balado.local/data/schema.json",
+  "title": "Balado – base de randonnées",
+  "description": "Valide data.json (et data/data-avance.json) : un tableau de fiches de randonnées accessibles en transports publics.",
+  "type": "array",
+  "minItems": 1,
+  "uniqueItems": true,
+  "items": { "$ref": "#/definitions/rando" },
+
+  "definitions": {
+    "rando": {
+      "type": "object",
+      "required": [
+        "id",
+        "titre",
+        "commune",
+        "prixMoyen",
+        "region",
+        "lieu",
+        "description",
+        "estOuvert",
+        "duree",
+        "distance",
+        "denivele",
+        "difficulte",
+        "transport",
+        "arretDepart",
+        "acces",
+        "tags",
+        "image"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Identifiant unique de la fiche (utilisé pour les favoris)."
+        },
+        "titre": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Nom de la randonnée, affiché sur la carte et la fiche."
+        },
+        "commune": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Commune où se trouve la randonnée."
+        },
+        "region": {
+          "type": "string",
+          "enum": ["Vaud", "Genève", "Neuchâtel", "Fribourg", "Valais", "Jura"],
+          "description": "Canton de Suisse romande."
+        },
+        "lieu": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Ville de recherche depuis laquelle la rando est proposée (écran Recherche → Résultats)."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 200,
+          "description": "Texte court affiché sur la fiche."
+        },
+        "prixMoyen": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Prix du billet aller demi-tarif depuis le lieu de recherche (CHF). 0 = départ à pied."
+        },
+        "estOuvert": {
+          "type": "boolean",
+          "description": "true si le sentier est praticable en ce moment (false = fermé pour l'hiver)."
+        },
+        "duree": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 600,
+          "description": "Durée de marche en minutes."
+        },
+        "distance": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Distance en kilomètres."
+        },
+        "denivele": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Dénivelé positif en mètres."
+        },
+        "difficulte": {
+          "type": "string",
+          "enum": ["Facile", "Moyen", "Difficile"],
+          "description": "Même libellé que les puces de filtre de l'écran Résultats."
+        },
+        "transport": {
+          "type": "string",
+          "enum": ["BUS", "TRAIN"],
+          "description": "Badge affiché sur la carte (correctif 1 du test utilisateur)."
+        },
+        "arretDepart": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Gare ou arrêt de départ, ex. « Arrêt Sallaz »."
+        },
+        "acces": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Ce que dit le temps affiché, ex. « puis 6 min à pied » ou « 12 min de train »."
+        },
+        "tags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "description": "Mots-clés en minuscules, sans accents."
+        },
+        "image": {
+          "type": "string",
+          "pattern": "^images/[a-z0-9-]+\\.(jpg|jpeg|png|webp)$",
+          "description": "Chemin relatif vers la photo."
+        },
+        "coordonnees": { "$ref": "#/definitions/coordonnees" },
+        "horaires": { "$ref": "#/definitions/horaires" }
+      }
+    },
+
+    "coordonnees": {
+      "description": "Point de départ (WGS84), limité à la Suisse romande. Champ optionnel (S10-AV2).",
+      "type": "object",
+      "required": ["lat", "lng"],
+      "additionalProperties": false,
+      "properties": {
+        "lat": { "type": "number", "minimum": 45.8, "maximum": 47.5 },
+        "lng": { "type": "number", "minimum": 5.9, "maximum": 8.0 }
+      }
+    },
+
+    "horaires": {
+      "description": "Plages pendant lesquelles le départ est desservi, jour par jour. Tableau vide = pas de desserte. Champ optionnel (S10-AV2).",
+      "type": "object",
+      "required": ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+      "additionalProperties": false,
+      "properties": {
+        "lundi": { "$ref": "#/definitions/plages" },
+        "mardi": { "$ref": "#/definitions/plages" },
+        "mercredi": { "$ref": "#/definitions/plages" },
+        "jeudi": { "$ref": "#/definitions/plages" },
+        "vendredi": { "$ref": "#/definitions/plages" },
+        "samedi": { "$ref": "#/definitions/plages" },
+        "dimanche": { "$ref": "#/definitions/plages" }
+      }
+    },
+
+    "plages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["debut", "fin"],
+        "additionalProperties": false,
+        "properties": {
+          "debut": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$" },
+          "fin": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$" }
+        }
+      }
+    }
+  }
+}

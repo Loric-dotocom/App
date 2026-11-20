@@ -583,3 +583,13 @@ a {
     transition: none;
   }
 }
+
+/* ----- Message de chargement / d'erreur des idées (fetch) ----- */
+.etat {
+  font-size: var(--taille-s);
+  font-weight: 700;
+}
+
+.etat:empty {
+  display: none;
+}
